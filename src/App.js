@@ -11,21 +11,25 @@ export default class App extends Component {
     renderer.setSize(window.innerWidth, window.innerHeight)
     // document.body.appendChild(renderer.domElement)
     this.mount.appendChild(renderer.domElement)
-    const geometry = new THREE.BoxGeometry(500, 10, 10)
+    const geometry = new THREE.BoxGeometry(30, 30, 30)
     const material = new THREE.MeshBasicMaterial({
-      color: 0x00ff00,
+      color: 0x00ffff,
       wireframe: true
     })
     const cube = new THREE.Mesh(geometry, material)
     scene.add(cube)
     const clock = new THREE.Clock(true)
-    camera.position.z = 500
+    camera.position.z = 600
     var animate = () => {
       const t = clock.getElapsedTime()
       requestAnimationFrame(animate)
-      cube.position.x += 0.005 * t
-      cube.position.y += 0.005 * t
-      cube.rotation.y += 0.018 * t
+      if (t < 20) {
+        cube.position.x = 5 * t
+        cube.position.y = 5 * t
+        cube.rotation.y = (Math.PI * 18 * t) / 180
+      }
+
+      // cube.rotation.y = 18 * t
       renderer.render(scene, camera)
     }
     animate()
